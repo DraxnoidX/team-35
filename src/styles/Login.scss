@@ -1,0 +1,76 @@
+/*colors*/
+/*logo colors*/
+$color-guc-red : #EC151D;
+$color-guc-yellow : #FFCB08;
+$color-guc-black : #000000;
+/*extra colors*/
+$color-prime : #1c4886;
+$color-secondary :  #008A62;
+$color-gray :  #e0e0e0;
+$color-reject : #880d28;
+$color-received : #d6d696;
+
+
+.login-card{
+    width : 50% !important;
+    background-color: $color-gray !important;
+    border: 0px solid $color-secondary !important;
+    box-shadow: 1px 2px 5px 0.1px $color-prime;
+    border-radius: 25px !important;
+    .card-header{
+        background-color: $color-prime !important;
+        color : white !important;
+        border-radius: 25px 25px 0px 0px !important;
+    }
+    .card-title{
+        border-radius: 25px !important;
+        width : 40% !important;
+        input[type=text],input[type=password] {
+            border : 2px solid $color-prime !important;
+            width : 125% !important; 
+            border-radius: 25px !important;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+    }
+    .btns{
+
+        .login-btn{
+            background-color: $color-prime !important;
+            color: white !important;
+            border-radius:  25px !important;
+            border : 2px solid $color-prime !important;
+        }
+        .login-btn:hover{
+            background-color: white !important;
+            color: $color-prime !important;
+            border : 2px solid $color-prime !important;
+        }
+    }
+    
+}
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+    .navigation-btns{
+        // .btn{
+        //     margin : 0 10px !important;
+        // }
+    }
+    .card{
+        width : 100% !important;   
+        .card-header{
+            select{
+                width : 240% !important;
+            
+            }
+        }
+        .card-title{
+            select {
+                width : 200% !important;
+            
+            }
+        }
+    }    
+}

@@ -1,0 +1,33 @@
+/*colors*/
+/*logo colors*/
+$color-guc-red : #EC151D;
+$color-guc-yellow : #FFCB08;
+$color-guc-black : #000000;
+/*extra colors*/
+$color-prime : #1c4886;
+$color-secondary : #005BA4;
+$color-gray :  #616161;
+
+.selected{
+    outline: none !important;
+    color:#F7F9FF !important;
+    font-weight: 700 !important;
+    border-radius: 25px;
+    // padding: 10px;
+    background-color: #008A62 !important ;
+        
+}
+
+.navbar{
+    background-color: $color-prime !important;
+    box-shadow: 1px 2px 5px 0.1px #021f47;
+    .nav-link{
+        color:#F7F9FF !important;
+    }
+    .nav-link:hover{
+        outline: none !important;
+        border-radius: 25px;
+        background-color: $color-gray !important ;
+    }
+    
+}

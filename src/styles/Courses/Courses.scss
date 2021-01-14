@@ -1,0 +1,109 @@
+/*colors*/
+/*logo colors*/
+$color-guc-red : #EC151D;
+$color-guc-yellow : #FFCB08;
+$color-guc-black : #000000;
+/*extra colors*/
+$color-prime : #1c4886;
+$color-secondary :  #008A62;
+$color-gray :  #e0e0e0;
+$color-reject : #880d28;
+$color-received : #d6d696;
+
+.container{
+    .new-assignment{
+        background-color: $color-gray !important;
+        box-shadow: 1px 2px 5px 0.1px $color-prime;
+        border: 0px solid $color-secondary !important;
+        border-radius: 25px !important;
+        .card-header{
+            background-color: $color-prime !important;
+            color : white !important;
+            border-radius: 25px 25px 0px 0px !important;
+            .header-select{
+                width : 21% !important;
+                select{
+                    
+                    border-radius: 25px !important;
+                    border : 2px solid white     !important; 
+                    background-color: $color-prime !important;
+                    color: white !important;
+                    outline: $color-secondary !important;       
+                }
+            }
+        }
+        .card-title{
+            border-radius: 25px !important;
+            width : 21% !important;
+            select{
+                background-color: #f0f0f0 !important;
+                border : 2px solid $color-prime !important; 
+                border-radius: 25px !important; 
+                color: $color-prime !important;
+                outline: $color-gray !important;
+                
+            }
+        }
+        .btns{
+            .accept{
+                background-color: $color-secondary !important;
+                color: white !important;
+                border-radius:  25px !important;
+                border : 2px solid $color-secondary !important;
+            }
+            .accept:hover{
+                background-color: white !important;
+                color: $color-secondary !important;
+                border : 2px solid $color-secondary !important;
+            }
+            .reject{
+                background-color: $color-reject !important;
+                color: white !important;
+                border-radius:  25px !important;
+                border : 2px solid $color-reject !important;
+            }
+            .reject:hover{
+                background-color: white !important;
+                color: $color-reject !important;
+                border : 2px solid $color-reject !important;
+            }
+        }
+    }
+
+    .row{
+        .card{
+            background-color: $color-gray !important;
+            border: 0px solid $color-secondary !important;
+            box-shadow: 1px 2px 5px 0.1px $color-prime;
+            border-radius: 25px;
+            .card-title{
+                color: $color-prime;
+            }
+            .card-text{
+                color : black;
+            }
+            .btn{
+                border-radius: 25px;
+            }
+            .details{
+                background-color: $color-prime !important; 
+                color: white !important;
+            }
+            .details:hover{
+                background-color: white !important ;
+                border : 2px solid $color-prime !important;
+                color: $color-prime !important;
+            }
+            .schedule{
+                background-color: $color-secondary !important;
+                color: white !important;
+                
+            }
+            .schedule:hover{
+                background-color: white !important;
+                border : 2px solid $color-secondary !important;
+                color: $color-secondary !important;
+            }
+        }
+    }
+}
