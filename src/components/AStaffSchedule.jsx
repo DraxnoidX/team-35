@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-export const Schedule = (props) =>(
+export const AStaffSchedule = (props) =>(
     <div className="container  mt-5 table-responsive-sm table-responsive-md">
         <table className="table table-bordered" >
             <thead>
@@ -428,4 +428,4 @@ export const Schedule = (props) =>(
     </div>
 );
 
-export default Schedule;
+export default AStaffSchedule;

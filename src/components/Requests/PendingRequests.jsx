@@ -41,7 +41,9 @@ export const PendingRequests =(props) =>(
                                     </div>
                                     
                                     <p className="card-text">{request.reason}</p>
-                                    
+                                    <span className="btns d-flex flex-row-reverse ">
+                                        <button className="btn  rejectedRequests mr-2">Cancel</button>
+                                    </span>
                                 </div>
                             </div>
                         </div>

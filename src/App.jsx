@@ -1,5 +1,5 @@
 import React ,{ Component, Fragment , useState, useEffect} from 'react';
-import { Switch ,Route } from 'react-router-dom';
+import { Switch ,Route,   useParams} from 'react-router-dom';
 import Courses from './components/Courses/Courses';
 import MyNavbar from './components/MyNavbar';
 import { Requests } from './components/Requests/Requests';
@@ -14,9 +14,16 @@ import axios from 'axios';
 import Login from './Login';
 import Profile from './Profile';
 import useToken from './components/useToken';
+import useID from './components/useID';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import AdminHR from './components/AdminHR/AdminHR';
+import AdminHOD from './components/AdminHOD/AdminHOD';
+import AdminCI from './components/AdminCI';
+import AStaffSchedule from './components/AStaffSchedule';
+import StaffPerCourse from './components/StaffPerCourse';
 //import UserContext from './context/UserContext'
 
-const BASE_URL ='https://localhost:8080';
+const BASE_URL ='http://localhost:8080';
 
 
 
@@ -45,47 +52,8 @@ function App()  {
       }
       
     ],
-    courses : [
-      {
-        id : 'CSEN701' ,
-        name : 'Embded Systems',
-        department : 'MET',
-        
-      },
-      {
-        id : 'CSEN702' ,
-        name : 'Micro',
-        department : 'MET',
-        
-      },
-      {
-        id : 'CSEN703' ,
-        name : 'Analysis',
-        department : 'MET',
-        
-      },
-      {
-        id : 'CSEN704' ,
-        name : 'Advanced Computer lab',
-        department : 'MET',
-        schedule : [['Saturday',[{user:'Ahmed Adel' , roomID : 'H11', tutorialNumber : 'T24'},
-                                  {user:'Nader' , roomID : 'H14', tutorialNumber : 'T21'},
-                                  {user:'Mared' , roomID : 'H6', tutorialNumber : 'T33'}
-                                ]
-                              ,[
-                                {user:'Ahmed Adel 2' , roomID : 'H11', tutorialNumber : 'T24'},
-                                  {user:'Nader 2' , roomID : 'H14', tutorialNumber : 'T21'},
-                                  {user:'Mared 2' , roomID : 'H6', tutorialNumber : 'T33'}
-                              ],[],[],[]],
-                    ['Sunday',[],[],[],[],[]],
-                    ['Monday',[],[],[],[],[]],
-                    ['Tuesday',[],[],[],[],[]],
-                    ['Wednesday',[],[],[],[],[]],
-                    ['Thursday',[],[],[],[],[]]
-                  ]
-        
-      }
-    ],
+    
+    
     myRequests : [
       {
         staffId : 'User ID',
@@ -142,137 +110,169 @@ function App()  {
         acceptanceStatus : 'accepted'
       }
     ],
-    users : [
-      {
-        username : 'Slim',
-        email : 'slim@guc',
-        type : 'HOD',
-        faculty : 'Engineering',
-        department : 'MET',
-        schedule :[
-                    ['Saturday',null,null,null,null,null],['Sunday',null,null,null,null,null],
-                    ['Monday',null,null,null,null,null],['Tuesday',null,null,null,null,null],
-                    ['Wednesday',null,null,null,null,null],['Thursday',null,null,null,null,null]
-                  ]
-       
-      },
-      {
-        username : 'Hassan Soubra',
-        email : 'soubra@guc',
-        type : 'course instructor',
-        faculty : 'Engineering',
-        department : 'MET',
-        schedule :[
-                    ['Saturday',null,null,null,null,null],['Sunday',null,null,null,null,null],
-                    ['Monday',null,null,null,null,null],['Tuesday',null,null,null,null,null],
-                    ['Wednesday',null,null,null,null,null],['Thursday',null,null,null,null,null]
-                  ]
-      },
-      {
-        username : 'Ahmed Adel',
-        email : 'adel@guc',
-        type : 'academic member',
-        faculty : 'Engineering',
-        department : 'MET',
-        schedule :[
-                    ['Saturday',null,null,null,null,null],['Sunday',null,null,null,null,null],
-                    ['Monday',null,null,null,null,null],['Tuesday',null,null,null,null,null],
-                    ['Wednesday',null,null,null,null,null],['Thursday',null,null,null,null,null]
-                  ]
-      },
-      {
-        username : 'Adam Abas',
-        email : 'abas@guc',
-        type : 'HR',
-        faculty : 'Engineering',
-        department : 'MET',
-        schedule :[
-                    ['Saturday',null,null,null,null,null],['Sunday',null,null,null,null,null],
-                    ['Monday',null,null,null,null,null],['Tuesday',null,null,null,null,null],
-                    ['Wednesday',null,null,null,null,null],['Thursday',null,null,null,null,null]
-                  ]
-      }
-    ],
-    rooms :[
-      {
-        roomId : 'H1',
-        schedule :[
-                    ['Saturday',null,null,null,null,null],['Sunday',null,null,null,null,null],
-                    ['Monday',null,null,null,null,null],['Tuesday',null,null,null,null,null],
-                    ['Wednesday',null,null,null,null,null],['Thursday',null,null,null,null,null]
-                  ]
-      },
-      {
-        roomId : 'H2',
-        schedule :[
-                    ['Saturday',null,null,null,null,null],['Sunday',null,null,null,null,null],
-                    ['Monday',null,null,null,null,null],['Tuesday',null,null,null,null,null],
-                    ['Wednesday',null,null,null,null,null],['Thursday',null,null,null,null,null]
-                  ]
-      },
-      {
-        roomId : 'H3',
-        schedule :[
-                    ['Saturday',null,null,null,null,null],['Sunday',null,null,null,null,null],
-                    ['Monday',null,null,null,null,null],['Tuesday',null,null,null,null,null],
-                    ['Wednesday',null,null,null,null,null],['Thursday',null,null,null,null,null]
-                  ]
-      }
-    ],
-    requestTypeSelected :{ 
-      type  : "default"
-    },
-    createRequestWindow : false
-  };
-  const acceptedRequests =state.myRequests.filter((request)=> (request.acceptanceStatus==='accepted'));
-  const pendingRequests = state.myRequests.filter((request)=> (request.acceptanceStatus==='pending'));
-  const rejectedRequests = state.myRequests.filter((request)=> (request.acceptanceStatus==='rejected'));
-  const requestTypeSelectedhandleChange = e => {
-    const requestTypeSelected = this.state.requestTypeSelected;
-    requestTypeSelected.type = e.target.value;
-    this.setState({requestTypeSelected});
-  }
-  const createRequestWindowOnClick = () =>{
-    if(this.state.createRequestWindow){
-      const createRequestWindow = !this.state.createRequestWindow;
-      console.log(this.state.createRequestWindow);
-      this.setState({createRequestWindow});
-    }
-    else{
-      const createRequestWindow = !this.state.createRequestWindow;
-      console.log(this.state.createRequestWindow);
-      this.setState({createRequestWindow});
-    }
+      rooms :[
+        {
+          roomId : 'H1',
+          schedule :[
+                      ['Saturday',null,null,null,null,null],['Sunday',null,null,null,null,null],
+                      ['Monday',null,null,null,null,null],['Tuesday',null,null,null,null,null],
+                      ['Wednesday',null,null,null,null,null],['Thursday',null,null,null,null,null]
+                    ]
+        },
+        {
+          roomId : 'H2',
+          schedule :[
+                      ['Saturday',null,null,null,null,null],['Sunday',null,null,null,null,null],
+                      ['Monday',null,null,null,null,null],['Tuesday',null,null,null,null,null],
+                      ['Wednesday',null,null,null,null,null],['Thursday',null,null,null,null,null]
+                    ]
+        },
+        {
+          roomId : 'H3',
+          schedule :[
+                      ['Saturday',null,null,null,null,null],['Sunday',null,null,null,null,null],
+                      ['Monday',null,null,null,null,null],['Tuesday',null,null,null,null,null],
+                      ['Wednesday',null,null,null,null,null],['Thursday',null,null,null,null,null]
+                    ]
+        }
+      ],
     
-  }
-  // const [userData, setUserData] = useState({
-  //   token : undefined,
-  //   user : undefined,
-  // });
-  // useEffect(()=>{
-  //   const logInChecker = async () =>{
-  //     let token = localStorage.getItem('access-token');
-  //     if(token===null){
-  //       localStorage.setItem('access-token','');
-  //       token ='';
-  //     }
-  //     const tokenResponse = await axios.post(BASE_URL+'/tokenIsValid',
-  //                                             null,
-  //                                             {headers : {'x-access-token' : token}}
-  //                                           );
-  //     if(tokenResponse.data){
-  //       const userResponse = await axios.get(BASE_URL+'/',
-  //                                         {headers : {'x-access-token' : token}}      
-  //                                       );
-  //       setUserData({
-  //         token,
-  //         user : userResponse.data
-  //       });
-  //     }
-  //   }
-  //   logInChecker();
-  // },[])
+  };
+  
+  
   const { token, setToken } = useToken();
+  const { id, setID } = useID();
+  //courses
+  const [courses , setCourses] = useState();
+  const getCourseData = ()=>{
+    axios
+        .get(BASE_URL+'/coursesList')
+        .then(async res => {
+            
+          await setCourses(res.data);
+            
+          
+        })
+  }
+  //user info
+  const [user , setUser] = useState();
+  const getUserData = ()=>{
+    axios
+        .get(BASE_URL+`/usersList/${id}`)
+        .then(async res => {
+            
+          await setUser(res.data);
+          //console.log(user);
+          
+        })
+  }
+  //other users
+  const [staff , setStaff] = useState();
+  const getStaffData = ()=>{
+    axios
+        .get(BASE_URL+'/usersList')
+        .then(async res => {
+            
+          await setStaff(res.data);
+          
+          
+        })
+  }
+  //rooms
+  const [rooms , setRooms] = useState();
+  const getRoomsData = ()=>{
+    axios
+        .get(BASE_URL+'/roomsList')
+        .then(async res => {
+            
+          await setRooms(res.data);
+            
+          
+        })
+  }
+  //faculties
+  const [faculties , setFaculties] = useState();
+  const getFacultiesData = ()=>{
+    axios
+        .get(BASE_URL+'/facultiesList')
+        .then(async res => {
+            
+          await setFaculties(res.data);
+            
+          
+        })
+  }
+  //departments
+  const [departments , setDepartments] = useState();
+  const getDepartmentsData = ()=>{
+    axios
+        .get(BASE_URL+'/departmentsList')
+        .then(async res => {
+            
+          await setDepartments(res.data);
+            
+          
+        })
+  }
+  //requests
+  const [requests , setRequests] = useState();
+  const getRequestsData = ()=>{
+    axios
+        .get(BASE_URL+'/requestsList')
+        .then(async res => {
+            
+          await setRequests(res.data);
+          
+          
+        })
+  }
+  //signin
+  const [signins , setSignins] = useState();
+  const getSigninsData = ()=>{
+    axios
+        .get(BASE_URL+'/requestsList')
+        .then(async res => {
+            
+          await setSignins(res.data);
+          
+          
+        })
+  }
+  let { uID } = useParams();
+  let { courseID } = useParams();
+  let acceptedRequests = state.myRequests.filter(r => r.acceptanceStatus==='accepted');
+  let pendingRequests = state.myRequests.filter(r => r.acceptanceStatus==='pending');
+  let rejectedRequests =state.myRequests.filter(r => r.acceptanceStatus==='rejected');
+ 
+    
+  //getCourseData();
+  useEffect( () => {
+    getCourseData();
+    getStaffData();
+    getRoomsData();
+    getFacultiesData();
+    getDepartmentsData();
+    getUserData();
+    getSigninsData();
+   // test();
+    // const test= staff.filter(s => s.id===uID);
+    // console.log(test);
+    //acceptedRequests =requests.filter((request)=> (request.acceptanceStatus==='accepted'));
+    //pendingRequests = requests.filter((request)=> (request.acceptanceStatus==='pending'));
+    //rejectedRequests = requests.filter((request)=> (request.acceptanceStatus==='rejected'));
+    return () => {
+      getCourseData();
+      getStaffData();
+      getRoomsData();
+      getFacultiesData();
+      getDepartmentsData();
+      getUserData();
+      getSigninsData();
+     // test();
+    }
+  },[])
+  
+
   if(!token) {
     return <Login setToken={setToken} />
   }
@@ -280,33 +280,61 @@ function App()  {
   return (
         <Fragment>
           {/* <UserContext.Provider value={{userData, setUserData}}> */}
-            <MyNavbar notifications={state.notifications}/>
+            {user ? <MyNavbar setToken={setToken}  user={user} notifications={state.notifications}/> : <h1> <CircularProgressbar/> </h1>}
             <Switch>
               
               <Route path="/" exact>
-                <Profile token={token}/>
+                {user ? <Profile token={token} user={user}/> : <h1> <CircularProgressbar/> </h1>}
               </Route>
-              {/* <Route path="/Login" exact>
-                  <Login/>
-              </Route> */}
+              <Route path="/Admin" exact>
+                  {
+                    user&&signins ?
+                    <>
+                      <div className={`${user.type==='HR' ? '' : 'd-none'} `}>
+                        <AdminHR 
+                              signins={signins}
+                              users={staff}
+                              departments={departments}
+                              courses ={courses}
+                              staff = {staff}
+                              rooms={rooms} 
+                              faculties={faculties}/>
+                      </div>
+                      <div className={`${user.type==='HOD' ? '' : 'd-none'} `}>
+                        <AdminHOD 
+                              users={staff.filter(u => u.department===user.department).map(user => user)}
+                              courses={courses.filter(c => c.department ===user.department).map(course => course)}
+                              department={user.department}/>
+                      </div>
+                      <div className={`${user.type==='Course Instructor' ? '' : 'd-none'} `}>
+                        <AdminCI 
+                              users={staff.filter(u => u.department===user.department).map(user => user)}
+                              courses={courses.filter(c => c.department ===user.department).map(course => course)}
+                              department={user.department}/>
+                      </div>
+                    </>
+                    : <h1> <CircularProgressbar/> </h1>
+                  }
+              </Route>
               <Route path="/Courses" exact>
-                  <Courses courses={state.courses}/>
+                  { courses ?  <Courses  courses={courses}/> : <h1> <CircularProgressbar/> </h1>}
               </Route>
-              <Route path="/Courses/CourseSchedule" exact>
-                  <CourseSchedule users={state.users} 
-                                  rooms = {state.rooms} 
-                                  testCourse={state.courses[3]}/>
+              <Route path="/Courses/CourseSchedule/:courseID" exact>
+                  {staff&&rooms&&courses ?<CourseSchedule 
+                                  courses={courses}
+                                  course={courses[0]}
+                                  users={staff} 
+                                  rooms = {rooms} /> : <h1> <CircularProgressbar/> </h1>}
               </Route>
               
               <Route path="/Schedule" exact>
-                  <Schedule/>
+                  {user ? <Schedule user={user} schedule={user.schedule}/> : <h1> <CircularProgressbar/> </h1>}
+              </Route>
+              <Route path='/Schedule/:uID' exact>
+                {user ? <Schedule user={user} schedule={user.schedule}/> : <h1> <CircularProgressbar/> </h1>}
               </Route>
               <Route path="/Requests" exact>
-                  <Requests 
-                          createRequestWindowOnClick={createRequestWindowOnClick}
-                          createRequestWindow={state.createRequestWindow} 
-                          requestTypeSelectedhandleChange={requestTypeSelectedhandleChange} 
-                          requestTypeSelected={state.requestTypeSelected}/>
+                  <Requests myRequests={state.myRequests}/>
               </Route>
               <Route path="/AcceptedRequests" exact>
                   <AcceptedRequests myRequests={acceptedRequests}/>
@@ -318,7 +346,22 @@ function App()  {
                   <RejectedRequests myRequests={rejectedRequests}/>
               </Route>
               <Route path="/Staff" exact>
-                  <Staff users={state.users}/>
+                  { staff&&user ? <Staff 
+                                        user={user}
+                                        departments={departments}
+                                        department ={user.department}
+                                        courses={courses.filter(c => c.department ===user.department).map(course => course)}
+                                        users={staff.filter(u => (u.department===user.department && u.id!==user.id)).map(user => user)}/> 
+                                : <h1><CircularProgressbar/></h1>}
+              </Route>
+              <Route path="/StaffPerCourse" exact>
+                  { staff&&user ? <StaffPerCourse
+                                        user={user}
+                                        departments={departments}
+                                        department ={user.department}
+                                        courses={courses.filter(c => c.department ===user.department).map(course => course)}
+                                        users={staff.filter(u => (u.department===user.department && u.id!==user.id)).map(user => user)}/> 
+                                : <h1><CircularProgressbar/></h1>}
               </Route>
             </Switch>
           {/* </UserContext.Provider> */}

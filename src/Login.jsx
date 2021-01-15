@@ -1,5 +1,6 @@
 import React ,{useState} from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from "react-router-dom";
 
 async function loginUser(credentials) {
     console.log(credentials);
@@ -22,7 +23,7 @@ async function loginUser(credentials) {
 export function Login({ setToken }){
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-
+    let history = useHistory();
     const handleSubmit = async e => {
         e.preventDefault();
         const token = await loginUser({
@@ -32,6 +33,7 @@ export function Login({ setToken }){
         //onsole.log(token);
         setToken(token);
         
+        history.push('/');window.location.reload(false);
     }
     return(
         <div className="container ">

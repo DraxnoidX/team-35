@@ -12,6 +12,10 @@ $color-gray :  #e0e0e0;
     box-shadow: 1px 2px 5px 0.1px $color-prime;
     th,td{
         border: 1px solid $color-prime !important;
+        
+    }
+    td{
+        color : $color-prime !important;
     }    
     .header{
         padding-top: 12px;

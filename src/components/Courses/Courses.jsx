@@ -8,15 +8,16 @@ export const Courses = ({courses}) => (
         <div className='container'>
             <div className='row ' >
                 
-                {   (courses.length==0)? <div>No courses avaliable</div>
+                {   (courses.length===0)? <div>No courses avaliable</div>
                     :courses.map(course => <div className="col-xs-12 col-md-6 col-lg-4">
-                                                <div class="card p-3 mb-5">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">{course.id}</h5>
-                                                        <p class="card-text">{course.name}</p>
+                                                <div className="card p-3 mb-5" data-id = {course.id}>
+                                                    <div className="card-body">
+                                                        <h5 className="card-title">{course.id}</h5>
+                                                        <p className="card-text">{course.name}</p>
+                                                        <p className="card-text"><span style={{color : '#008A62'}}>Course coverage : </span>{(course.totalSlotsTaken/course.totalSlots)*100}</p>
                                                         <span className="btns pt-5">
-                                                            <Link to="#" class="btn details">Course details</Link>
-                                                            <Link to="/Courses/CourseSchedule" class="ml-2 btn schedule">Course schedule</Link>
+                                                            <Link to="#" className="btn details">Course details</Link>
+                                                            <Link to={`/Courses/CourseSchedule/${course.id}`} className="ml-2 btn schedule">Course schedule</Link>
                                                         </span>
                                                     </div>
                                                 </div>

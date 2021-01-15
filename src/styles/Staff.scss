@@ -8,6 +8,14 @@ $color-secondary :  #008A62;
 $color-gray :  #e0e0e0;
 
 .container{
+    select{
+        background-color: white !important;
+        border : 2px solid $color-prime !important; 
+        border-radius: 25px !important; 
+        color: $color-prime !important;
+        outline: $color-gray !important;
+        
+    }
     .row{
         img{
             color: $color-prime !important;

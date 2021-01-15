@@ -1,14 +1,27 @@
-import React from 'react';
+import React ,{useState} from 'react';
 import { Link } from 'react-router-dom';
 import CourseSlot from './CourseSlot';
-export const CourseSchedule = (props) =>(
+import CourseAssignment from './CourseAssignment';
+export const CourseSchedule = (props) =>{
+    const [window , setWindow] =useState(false);
+    function windowHnadler(){
+        setWindow(window => !window);
+        console.log(window);
+    }
+    return(
     <div className="container">
+        
         <h1 style={{color : '#1c4886'}}>CSEN704</h1>
         <div className="navigation-btns mt-5 d-flex justify-content-around">
-                <button  className="btn  acceptedRequests mb-5">Edit assignment</button>
-                <button  className="btn  create-new-request mb-5">New assignment</button>
+                <button  onClick={windowHnadler} className={`btn  acceptedRequests mb-5 ${(window===true) ? 'd-none' : ''}`}>
+                    Open Assignment Editor
+                </button>
+                <button  onClick={windowHnadler} className={`btn  rejectedRequests mb-5 ${(window===true) ? '' : 'd-none'}`}>
+                    Close Assignment Editor
+                </button>
         </div>
-        <div className="card new-assignment">
+        <CourseAssignment window={window}/>
+        <div className="card new-assignment d-none">
             <h5 className="card-header">New assignment</h5>
             <div className="card-body">
                 <h5 className="card-title">
@@ -77,114 +90,114 @@ export const CourseSchedule = (props) =>(
                 <tr>
                     <th className='row-header' scope="row">Saturday</th>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={0} slot={1}/>
+                        <CourseSlot course={props.course} day={0} slot={1}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={0} slot={2}/>
+                        <CourseSlot course={props.course} day={0} slot={2}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={0} slot={3}/>
+                        <CourseSlot course={props.course} day={0} slot={3}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={0} slot={4}/>
+                        <CourseSlot course={props.course} day={0} slot={4}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={0} slot={5}/>
+                        <CourseSlot course={props.course} day={0} slot={5}/>
                     </td>
                 </tr>
                 <tr>
                     <th className='row-header' scope="row">Sunday</th>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={1} slot={1}/>
+                        <CourseSlot course={props.course} day={1} slot={1}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={1} slot={2}/>
+                        <CourseSlot course={props.course} day={1} slot={2}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={1} slot={3}/>
+                        <CourseSlot course={props.course} day={1} slot={3}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={1} slot={4}/>
+                        <CourseSlot course={props.course} day={1} slot={4}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={1} slot={5}/>
+                        <CourseSlot course={props.course} day={1} slot={5}/>
                     </td>
                 </tr>
                 <tr>
                     <th className='row-header' scope="row">Monday</th>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={2} slot={1}/>
+                        <CourseSlot course={props.course} day={2} slot={1}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={2} slot={2}/>
+                        <CourseSlot course={props.course} day={2} slot={2}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={2} slot={3}/>
+                        <CourseSlot course={props.course} day={2} slot={3}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={2} slot={4}/>
+                        <CourseSlot course={props.course} day={2} slot={4}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={2} slot={5}/>
+                        <CourseSlot course={props.course} day={2} slot={5}/>
                     </td>
                 </tr>
                 <tr>
                     <th className='row-header' scope="row">Tuesday</th>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={3} slot={1}/>
+                        <CourseSlot course={props.course} day={3} slot={1}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={3} slot={2}/>
+                        <CourseSlot course={props.course} day={3} slot={2}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={3} slot={3}/>
+                        <CourseSlot course={props.course} day={3} slot={3}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={3} slot={4}/>
+                        <CourseSlot course={props.course} day={3} slot={4}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={3} slot={5}/>
+                        <CourseSlot course={props.course} day={3} slot={5}/>
                     </td>
                 </tr>
                 <tr>
                     <th className='row-header' scope="row">Wednesday</th>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={4} slot={1}/>
+                        <CourseSlot course={props.course} day={4} slot={1}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={4} slot={2}/>
+                        <CourseSlot course={props.course} day={4} slot={2}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={4} slot={3}/>
+                        <CourseSlot course={props.course} day={4} slot={3}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={4} slot={4}/>
+                        <CourseSlot course={props.course} day={4} slot={4}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={4} slot={5}/>
+                        <CourseSlot course={props.course} day={4} slot={5}/>
                     </td>
                 </tr>
                 <tr>
                     <th className='row-header' scope="row">Thursday</th>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={5} slot={1}/>
+                        <CourseSlot course={props.course} day={5} slot={1}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={5} slot={2}/>
+                        <CourseSlot course={props.course} day={5} slot={2}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={5} slot={3}/>
+                        <CourseSlot course={props.course} day={5} slot={3}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={5} slot={4}/>
+                        <CourseSlot course={props.course} day={5} slot={4}/>
                     </td>
                     <td className='text-center'>
-                        <CourseSlot testCourse={props.testCourse} day={5} slot={5}/>
+                        <CourseSlot course={props.course} day={5} slot={5}/>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-);
-
+    );
+}
 export default CourseSchedule;
